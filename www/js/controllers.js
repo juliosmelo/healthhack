@@ -45,8 +45,16 @@ angular.module('starter.controllers', [])
   $scope.playlists = [
     { title: 'Hospitals', id: 1 },
     { title: 'Pharmacies', id: 2 },
+    { title: 'News', id: 3 },
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('PlaylistCtrl', function($scope, $stateParams, $http) {
+  var serviceUrl = 'file:///android_asset/www/';
+  $http.get('http://192.168.1.176/healthhack/json/hospitals.json').then(function(resp) {
+    $scope.hospitals = resp.data.results;
+  }, function(err) {
+    console.error('ERR', err);
+    // err.status will contain the status code
+  })
 });
